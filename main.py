@@ -26,13 +26,11 @@ class Shortener():
 
     def retrieve(self, shortened_str) -> str:
         url = ''
-        try:
-            url = self.store.get(shortened_str)
+        url = self.store.get(shortened_str)
             
-            if not url:
-                raise ValueError('Failed to find the URL.')
-        except:
-            raise
+        if not url:
+            raise ValueError('Failed to find the URL.')
+        
         return url
 
 

@@ -1,4 +1,5 @@
 from store.in_memory_store import InMemoryStore
+import pytest
 
 def test_add():
     store = InMemoryStore()
@@ -6,8 +7,10 @@ def test_add():
     assert store.add('short1', 'long1')
     assert store.add('short1', 'long1')
     assert store.add('short1', 'long2') == False
-    assert store.add('', '') == False
-    assert store.add(None, '') == False
+    with pytest.raises(ValueError):
+        store.add('', '')
+    with pytest.raises(ValueError):
+        store.add(None, '')
 
 def test_get():
     store = InMemoryStore()
@@ -20,5 +23,20 @@ def test_get():
     assert store.get('short1') == 'long1'
     assert store.get('short2') == 'long2'
     assert store.get('short3') is None
-    assert store.get('') is None
-    assert store.get(None) is None
+    with pytest.raises(ValueError):
+        store.get('')
+    with pytest.raises(ValueError):
+        store.get(None)
+
+def test_update():
+    store = InMemoryStore()
+    assert store.add('short', 'long', 'user')
+    assert store.add('short1', 'long1', 'user')
+    assert store.add('short1', 'long1', 'user')
+    assert store.get('short1') == 'long1'
+    assert store.update('short1', 'long2', 'user')
+    assert store.get('short1') == 'long2'
+    assert store.add('short1', 'longlong') == False
+    assert store.update('short', 'longlong', 'user2') == False
+    with pytest.raises(ValueError):
+        assert store.update('short1', '', '')
