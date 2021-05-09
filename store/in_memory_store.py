@@ -1,4 +1,4 @@
-from .store import Store
+from core.store.store import Store
 from threading import RLock
 
 class InMemoryStore(Store):
