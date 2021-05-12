@@ -2,6 +2,9 @@ from core.store.store import Store
 from threading import RLock
 
 class InMemoryStore(Store):
+    """
+    Implements an in-memory store for the shortener core api using dictionary
+    """
     def __init__(self) -> None:
         super().__init__()
         self.__store = dict()
