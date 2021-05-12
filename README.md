@@ -18,10 +18,12 @@ The code is tested with python 3.8+.
 
 To setup the project, assuming python is installed.
 
-Clone the project and create python venv:
+Clone the project and update submodules, then create python venv:
 ```
 git clone https://github.com/Springf/url-shortener.git
 cd url-shortener
+git submodule init
+git submodule update
 python -m venv venv
 ```
 Activate the venv:
